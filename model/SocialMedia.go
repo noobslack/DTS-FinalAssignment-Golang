@@ -10,7 +10,7 @@ import (
 type SocialMedia struct {
 	Name           string `json:"name" validate:"required"`
 	SocialMediaURL string `json:"social_media_url" validate:"required"`
-	UserID         uint
+	UserID         uint   `json:"user_id"`
 	User           *User
 	gorm.Model
 }
@@ -49,4 +49,9 @@ type SocialMediaResponse struct {
 	CreatedAt      time.Time `json:"created_at"`
 	UpdatedAt      time.Time `json:"updated_at"`
 	User           UpdateSocMedResponse
+}
+
+type GetOneResponse struct {
+	Name           string `json:"name"`
+	SocialMediaURL string `json:"social_media_url"`
 }

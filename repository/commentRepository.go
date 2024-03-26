@@ -4,6 +4,7 @@ import (
 	"mygram-finalprojectdts/model"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type commentRepository struct {
@@ -35,7 +36,7 @@ func (pr *commentRepository) GetAll() ([]model.Comment, error) {
 }
 
 func (pr *commentRepository) Update(id uint, newComment model.Comment) (model.Comment, error) {
-	tx := pr.db.Model(&newComment).Where("id=?", id).Updates(model.Comment{
+	tx := pr.db.Model(&newComment).Clauses(clause.Returning{Columns: []clause.Column{{Name: "photo_id"}}}).Where("id=?", id).Updates(model.Comment{
 		Message: newComment.Message,
 	})
 

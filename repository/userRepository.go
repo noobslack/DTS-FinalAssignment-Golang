@@ -4,6 +4,7 @@ import (
 	"mygram-finalprojectdts/model"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type userRepository struct {
@@ -30,10 +31,9 @@ func (ur *userRepository) GetByUsername(email string) (model.User, error) {
 }
 
 func (ur *userRepository) Update(id uint, newUser model.User) (model.User, error) {
-	tx := ur.db.Model(&newUser).Where("id=?", id).Updates(model.User{
+	tx := ur.db.Model(&newUser).Clauses(clause.Returning{Columns: []clause.Column{{Name: "age"}}}).Where("id=?", id).Updates(model.User{
 		Email:    newUser.Email,
 		UserName: newUser.UserName,
-		Age:      newUser.Age,
 	})
 
 	return newUser, tx.Error

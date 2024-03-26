@@ -211,12 +211,16 @@ func (pc *commentController) Update(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, helper.CreateResponse(false, nil, err.Error()))
 	}
 
-	ctx.JSON(http.StatusOK, helper.CreateResponse(true, gin.H{
-		"id":         updatedComment.ID,
-		"message":    updatedComment.Message,
-		"photo_id":   updatedComment.PhotoID,
-		"user_id":    updatedComment.UserID,
-		"created_at": updatedComment.CreatedAt,
-	}, ""))
+	updateResponse := make([]model.CommentUpdated, 0)
+
+	updateResponse = append(updateResponse, model.CommentUpdated{
+		ID:        updatedComment.ID,
+		Message:   updatedComment.Message,
+		UserID:    updatedComment.UserID,
+		PhotoID:   updatedComment.PhotoID,
+		UpdatedAt: updatedComment.UpdatedAt,
+	})
+
+	ctx.JSON(http.StatusOK, helper.CreateResponse(true, updateResponse, ""))
 
 }

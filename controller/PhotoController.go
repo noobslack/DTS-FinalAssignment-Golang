@@ -114,13 +114,13 @@ func (pc *photoController) GetOne(ctx *gin.Context) {
 
 	var photoRequest model.Photo
 
-	socialMediaID, err := strconv.Atoi(ctx.Param("photoId"))
+	photoID, err := strconv.Atoi(ctx.Param("photoId"))
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, helper.CreateResponse(false, nil, err.Error()))
 	}
 
 	photoRequest.UserID = uint(sub.(float64))
-	photoRequest.ID = uint(socialMediaID)
+	photoRequest.ID = uint(photoID)
 
 	result, err := pc.photoRepository.GetOne(photoRequest.ID)
 	if err != nil {

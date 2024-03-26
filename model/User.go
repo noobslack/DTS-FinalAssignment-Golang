@@ -1,6 +1,8 @@
 package model
 
 import (
+	"time"
+
 	"github.com/go-playground/validator"
 	"gorm.io/gorm"
 )
@@ -41,6 +43,14 @@ func (u *User) BeforeUpdate(tx *gorm.DB) error {
 	}
 
 	return nil
+}
+
+type UpdateUserResponse struct {
+	ID        uint       `json:"id"`
+	Email     string    `json:"email"`
+	Username  string    `json:"string"`
+	Age       uint       `json:"age"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type UpdatePhotoResponse struct {

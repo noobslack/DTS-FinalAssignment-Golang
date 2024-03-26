@@ -207,7 +207,7 @@ func (pc *socialMediaController) Update(ctx *gin.Context) {
 		"name":             updatedSocMed.Name,
 		"social_media_url": updatedSocMed.SocialMediaURL,
 		"user_id":          updatedSocMed.UserID,
-		"created_at":       updatedSocMed.CreatedAt,
+		"updated_at":       updatedSocMed.UpdatedAt,
 	}, ""))
 
 }

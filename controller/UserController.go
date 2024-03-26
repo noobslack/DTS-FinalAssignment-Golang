@@ -112,13 +112,17 @@ func (uc *userController) Update(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, helper.CreateResponse(true, gin.H{
-		"id":        updatedUser.ID,
-		"username":  updatedUser.UserName,
-		"age":       updatedUser.Age,
-		"email":     updatedUser.Email,
-		"updatedAt": updatedUser.UpdatedAt,
-	}, ""))
+	updateResponse := make([]model.UpdateUserResponse, 0)
+
+	updateResponse = append(updateResponse, model.UpdateUserResponse{
+		ID:        updatedUser.ID,
+		Username:  updatedUser.UserName,
+		Age:       updatedUser.Age,
+		Email:     updatedUser.Email,
+		UpdatedAt: updatedUser.UpdatedAt,
+	})
+
+	ctx.JSON(http.StatusOK, helper.CreateResponse(true, updateResponse, ""))
 }
 
 func (uc *userController) Delete(ctx *gin.Context) {
